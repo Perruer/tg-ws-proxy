@@ -818,6 +818,17 @@ async def _handle_client(reader, writer):
 
         port = struct.unpack('!H', await reader.readexactly(2))[0]
 
+        if ':' in dst:
+            log.error(
+                "[%s] IPv6 address detected: %s:%d — "
+                "IPv6 doesn't supported "
+                "Disable IPv6 to continue using the proxy.",
+                label, dst, port)
+            writer.write(_socks5_reply(0x05))
+            await writer.drain()
+            writer.close()
+            return
+
         # -- Non-Telegram IP -> direct passthrough --
         if not _is_telegram_ip(dst):
             _stats.connections_passthrough += 1

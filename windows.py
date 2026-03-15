@@ -25,6 +25,7 @@ APP_DIR = Path(os.environ.get("APPDATA", Path.home())) / APP_NAME
 CONFIG_FILE = APP_DIR / "config.json"
 LOG_FILE = APP_DIR / "proxy.log"
 FIRST_RUN_MARKER = APP_DIR / ".first_run_done"
+IPV6_WARN_MARKER = APP_DIR / ".ipv6_warned"
 
 
 DEFAULT_CONFIG = {
@@ -575,6 +576,49 @@ def _show_first_run():
     root.mainloop()
 
 
+def _has_ipv6_enabled() -> bool:
+    import socket as _sock
+    try:
+        addrs = _sock.getaddrinfo(_sock.gethostname(), None, _sock.AF_INET6)
+        for addr in addrs:
+            ip = addr[4][0]
+            if ip and not ip.startswith('::1') and not ip.startswith('fe80::1'):
+                return True
+    except Exception:
+        pass
+    try:
+        s = _sock.socket(_sock.AF_INET6, _sock.SOCK_STREAM)
+        s.bind(('::1', 0))
+        s.close()
+        return True
+    except Exception:
+        return False
+
+
+def _check_ipv6_warning():
+    _ensure_dirs()
+    if IPV6_WARN_MARKER.exists():
+        return
+    if not _has_ipv6_enabled():
+        return
+
+    IPV6_WARN_MARKER.touch()
+
+    threading.Thread(target=_show_ipv6_dialog, daemon=True).start()
+
+
+def _show_ipv6_dialog():
+    _show_info(
+        "На вашем компьютере включён IPv6.\n\n"
+        "Telegram может пытаться подключаться через IPv6, "
+        "что не поддерживается и может привести к ошибкам.\n\n"
+        "Если прокси не работает или в логах видны ошибки связанные с IPv6, "
+        "то проверьте в настройках Telegram, что рядом с настройкой прокси не включён "
+        "пунукт про IPv6. Если это не поможет, то выключите IPv6 в системе\n\n"
+        "Это предупрждение будет показано только один раз.",
+        "TG WS Proxy")
+
+
 def _build_menu():
     if pystray is None:
         return None
@@ -625,6 +669,7 @@ def run_tray():
     start_proxy()
 
     _show_first_run()
+    _check_ipv6_warning()
 
     icon_image = _load_icon()
     _tray_icon = pystray.Icon(
