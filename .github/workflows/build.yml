@@ -28,6 +28,10 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install pyinstaller
         run: pip install pyinstaller
+      - name: Setup MSVC dev environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
       - name: Rebuild PyInstaller bootloader
         run: |
           $version = python -c "import PyInstaller; print(PyInstaller.__version__)"
@@ -40,8 +44,13 @@ jobs:
           Copy-Item -Force .\build\release\*  $dest
           Copy-Item -Force .\build\releasew\* $dest
         shell: pwsh
+
+      - name: Verify bootloader location and hash
+        run: |
+          python -c "import PyInstaller, pathlib, hashlib; p=pathlib.Path(PyInstaller.__file__).parent/'bootloader'/'Windows-64bit-intel'/'run.exe'; print(p); print(hashlib.sha256(p.read_bytes()).hexdigest())"
+        shell: pwsh
       - name: Build EXE with PyInstaller
-        run: pyinstaller packaging/windows.spec --noconfirm
+        run: pyinstaller packaging/windows.spec --noconfirm --log-level=DEBUG
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
