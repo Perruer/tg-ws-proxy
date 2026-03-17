@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tg_blue">#3390EC</color>
+    <color name="tg_blue_hover">#2B7CD4</color>
+    <color name="background">#F0F2F5</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#707579</color>
+    <color name="divider">#D6D9DC</color>
+    <color name="red">#E53935</color>
+    <color name="green">#43A047</color>
+    <color name="gray">#9E9E9E</color>
+</resources>

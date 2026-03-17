@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:background="@color/tg_blue"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TG WS Proxy"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"/>
+        </LinearLayout>
+
+        <!-- Status Card -->
+        <androidx.cardview.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="12dp"
+            card_view:cardElevation="2dp"
+            card_view:cardBackgroundColor="@color/card_bg"
+            android:layout_marginBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Status row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <View
+                        android:id="@+id/statusIndicator"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:background="@drawable/circle_gray"
+                        android:layout_marginEnd="10dp"/>
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Остановлен"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/text_primary"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStatusDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Нажмите «Запустить»"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="12sp"
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="monospace"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Buttons -->
+        <Button
+            android:id="@+id/btnToggle"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Запустить"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:backgroundTint="@color/tg_blue"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/btnOpenTelegram"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Открыть в Telegram"
+            android:textSize="14sp"
+            android:textColor="@color/tg_blue"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:enabled="false"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Settings -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Настройки"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Port -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Порт (SOCKS5)"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="6dp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editPort"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="1080"
+            android:inputType="number"
+            android:background="@drawable/field_bg"
+            android:padding="12dp"
+            android:textSize="15sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Host -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Хост"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="6dp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editHost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="127.0.0.1"
+            android:inputType="text"
+            android:background="@drawable/field_bg"
+            android:padding="12dp"
+            android:textSize="15sp"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- DC IPs -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DC IP (формат DC:IP, по одному на строку)"
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary"
+            android:layout_marginBottom="6dp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDcIp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="2:149.154.167.220&#10;4:149.154.167.220"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:gravity="top"
+            android:background="@drawable/field_bg"
+            android:padding="12dp"
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Verbose switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Подробные логи"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchVerbose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- AutoStart switch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Автозапуск при загрузке"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"/>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchAutoStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- Save button -->
+        <Button
+            android:id="@+id/btnSaveConfig"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Сохранить настройки"
+            android:textSize="14sp"
+            android:textColor="#ffffff"
+            android:backgroundTint="@color/tg_blue"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Hint -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="После сохранения настроек — перезапустите прокси"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prod. by VVP"
+            android:textSize="12sp"
+            android:textColor="@color/text_secondary"
+            android:textAlignment="center"
+            android:layout_marginBottom="8dp"/>
+    </LinearLayout>
+</ScrollView>

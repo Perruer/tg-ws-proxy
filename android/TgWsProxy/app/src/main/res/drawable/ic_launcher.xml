@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Синий круг (как в Python: fill=(0, 136, 204)) -->
+    <path
+        android:fillColor="#0088CC"
+        android:pathData="M54,4 A50,50 0 1,1 53.999,4 Z"/>
+
+    <!-- Буква T белая по центру -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,34 L76,34 L76,44 L60,44 L60,74 L48,74 L48,44 L32,44 Z"/>
+</vector>
